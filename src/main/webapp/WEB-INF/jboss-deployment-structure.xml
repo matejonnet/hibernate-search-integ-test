@@ -1,0 +1,12 @@
+<jboss-deployment-structure>
+    <deployment>
+        <dependencies>
+            <module name="org.infinispan"/>
+            <module name="org.infinispan.query"/>
+            <module name="org.apache.lucene"/>
+            <module name="org.hibernate.search"/>
+            <module name="org.jgroups"/>
+            <module name="javax.persistence.api"/>
+        </dependencies>
+    </deployment>
+</jboss-deployment-structure>
