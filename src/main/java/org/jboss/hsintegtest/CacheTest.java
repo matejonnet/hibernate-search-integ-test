@@ -57,14 +57,28 @@ public class CacheTest extends HttpServlet {
         out.println("<br />");
         out.println("size: " + q.getResultSize() + "<br />");
 
-        List<Object> list = q.list();
-        for (Object email : list) {
-            out.println(email + "<br />");
+        list(out, q);
+
+        if (req.getParameter("del") != null) {
+            clear();
+            out.println("List afret delete.<br />");
+            list(out, q);
         }
 
         out.println("done.");
 
         out.close();
+    }
+
+    private void list(PrintWriter out, CacheQuery q) {
+        List<Object> list = q.list();
+        for (Object email : list) {
+            out.println(email + "<br />");
+        }
+    }
+
+    private void clear() {
+        getCache().clear();
     }
 
     private CacheQuery getCacheQuery(Query query, Class<?> classes) {
@@ -77,15 +91,8 @@ public class CacheTest extends HttpServlet {
     private void storeEmail(String message) {
         SimpleEmail email = new SimpleEmail();
         email.to = "complaints-office@world.com";
-//        email.setId(System.currentTimeMillis());
         email.setMessage(message);
-//        FullTextSession fullTextSession = cache.getAdvancedCache().openFullTextSession();
-//        Transaction transaction = fullTextSession.beginTransaction();
-//        fullTextSession.save( email );
-//        transaction.commit();
-//        fullTextSession.close();
-          getCache().put(System.currentTimeMillis(), email);
-//        getCache().put(email.getId(), email);
+        getCache().put(System.currentTimeMillis(), email);
     }
 
     private void sleep() {
